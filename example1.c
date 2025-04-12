@@ -111,7 +111,7 @@ void canbe(GPH *g, int nrv, STK *s1, STK *s2)// 0 sau 1 daca poate fi sau nu aju
             wipe(g, nrv);
             for (int j = 0; j < nrv; j++)
                 if ((s1->arr[i] == j) && (s2->arr[j] == i))
-            canbe = 1;
+                    *canbe = 1;
         }
 }
             
@@ -127,18 +127,18 @@ int main()
     int virtex_2;
     int ans;
 
-    printf("cate noduri are girafa?");
+    printf("cate noduri are graful?");
     scanf("%d", &nrv);
 
     printf("cate muchii are giraful?");
     scanf("%d", &edg_nr);
 
-    GPH *g = create_g(&nrv);
+    GPH *g = create_g(nrv);
 
     STK *s1 = create_s(2 * nrv);
     STK *s2 = create_s(2 * nrv);
 
-    insert_edges(&g, edg_nr, nrv);
+    insert_edges(g, edg_nr, nrv);
 
-    canbe(&g, nrv, &s1, &s2);
+    canbe(g, nrv, s1, s2);
 }
