@@ -67,14 +67,14 @@ int is_empty(NODE *queue)
     return queue == NULL;
 }
 
-void enqueue(NODE ***queue, int data)
+void enqueue(NODE *queue, int data)
 {
     NODE *new_node = create_node(data);
-    if (is_empty(*queue)) 
-        *queue = new_node;
+    if (is_empty(queue)) 
+        queue = new_node;
     else
     {
-        NODE *temp = *queue;
+        NODE *temp = queue;
         while (temp->next)
         {
             temp = temp->next;
@@ -97,9 +97,10 @@ void print_graph(GPH *graph)
     for (i = 0; i < graph->vertices; i++)
     {
         NODE *temp = graph->adjacency_lists[i<<2];
-        while (temp) {
+        while (temp)
+        {
             printf("%d ", temp->data);
-            temp = temp->next->data;
+            temp = temp->next;
         }
         printf("\n");
     }
@@ -144,7 +145,7 @@ void BFS(GPH *graph, int start)
 {
     NODE *queue = NULL;
     graph->visited[start] = 1;
-    enqueue(&queue, start);
+    enqueue(queue, start);
     while (!is_empty(queue))
     {
         int current = dequeue(&queue);
